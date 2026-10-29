@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "game": "地下城勇士Q版",
+  "package": "com.pixelstudio.dnfmarena",
+  "latest": {
+    "version_name": "1.0.0",
+    "version_code": 1,
+    "published_at": "2026-10-29T19:05:00Z",
+    "size_bytes": 30469418,
+    "sha256": "f8f14c061bc4aaea1db20d1ff43f080ba53e4098d7d4e2f3f27d4e601900b0ed",
+    "min_supported_version_code": 1,
+    "mandatory": false,
+    "changelog": [
+      "Q版DNF横版动作首版：勇士三段连招（4/4/6）与1.2秒续接窗口",
+      "两档技能：蓄力斩（伤害14/冷却1.2秒）与鬼影斩（范围62/伤害26/冷却3秒）",
+      "5波地牢刷图：14只哥布林与壮汉、掉落金币与经验、升级成长、S/A/B/C 评级结算",
+      "触屏摇杆与跳/攻/技/鬼四键操作，适配手机横屏"
+    ],
+    "download_url": "https://github.com/zjj1769404838/dnfm-arena/releases/download/v1.0.0/dnfm-arena-1.0.0.apk",
+    "release_page": "https://github.com/zjj1769404838/dnfm-arena/releases/tag/v1.0.0"
+  },
+  "history": []
+}
