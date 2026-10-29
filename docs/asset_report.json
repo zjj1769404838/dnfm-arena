@@ -1,5 +1,5 @@
 {
- "project": "D:/my-projects/games/dnfm-arena",
+ "project": "D:/my-projects/games/game-4/dnfm-arena",
  "genre": "beat_em_up",
  "entities": {
   "hero_idle": {
@@ -130,7 +130,7 @@
     ],
     "subject_redraw_avg": 0.8206666666666665
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_idle_breathe.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\hero_idle_breathe.png"
   },
   "hero_walk": {
    "frames_expected": 6,
@@ -260,7 +260,7 @@
     "subj_diff_avg": 0.749,
     "opaque_ratio_avg": 0.424
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_walk.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\hero_walk.png"
   },
   "hero_attack1": {
    "frames_expected": 6,
@@ -409,7 +409,7 @@
     ],
     "subject_redraw_avg": 0.8726
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_attack1.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\hero_attack1.png"
   },
   "hero_skill_slash": {
    "frames_expected": 8,
@@ -609,7 +609,7 @@
     ],
     "subject_redraw_avg": 0.8788571428571429
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_skill_slash.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\hero_skill_slash.png"
   },
   "hero_ghost_slash": {
    "frames_expected": 6,
@@ -758,7 +758,7 @@
     ],
     "subject_redraw_avg": 0.8996000000000001
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_ghost_slash.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\hero_ghost_slash.png"
   },
   "goblin_walk": {
    "frames_expected": 4,
@@ -850,7 +850,7 @@
     "subj_diff_avg": 0.693,
     "opaque_ratio_avg": 0.378
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\goblin_walk.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\goblin_walk.png"
   },
   "brute_walk": {
    "frames_expected": 4,
@@ -942,7 +942,7 @@
     "subj_diff_avg": 0.493,
     "opaque_ratio_avg": 0.5
    },
-   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\brute_walk.png"
+   "contact_sheet": "D:/my-projects/games/game-4/dnfm-arena\\assets\\contact_sheet\\brute_walk.png"
   }
  },
  "fail": [],

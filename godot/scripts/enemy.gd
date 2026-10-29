@@ -31,6 +31,7 @@ const BRUTE_SIZE := Vector2(26.0, 50.0)
 const MAX_FALL := 520.0
 const KNOCKBACK_DECAY := 6.0
 const FLASH_TIME := 0.12
+const WINDUP_TELL := 0.18     # 挥击前摇期间红色警示闪光的呼吸频率（Hz）
 const SEPARATION := 14.0      # 敌人之间互斥间距
 const SEPARATION_FORCE := 46.0
 const ATTACK_WINDUP := 0.18   # 挥击前摇
@@ -60,6 +61,7 @@ var _knockback_scale: float = 1.0
 
 var _attack_timer: float = 0.0
 var _windup: float = 0.0
+var _tell_phase: float = 0.0   # 前摇警示呼吸相位
 var _flash: float = 0.0
 var _knockback: Vector2 = Vector2.ZERO
 var _facing: int = 1
@@ -236,6 +238,7 @@ func _physics_process(delta: float) -> void:
 	if _windup > 0.0:
 		# 挥击前摇：短暂停顿，播攻击表现
 		_windup = maxf(0.0, _windup - delta)
+		_tell_phase += delta
 		velocity.x = move_toward(velocity.x, 0.0, 400.0 * delta)
 		if _windup <= 0.0:
 			_swing()
@@ -265,6 +268,7 @@ func _chase(delta: float) -> void:
 		if _attack_timer <= 0.0:
 			_attack_timer = _attack_interval
 			_windup = ATTACK_WINDUP
+			_tell_phase = 0.0
 			_play_anim("walk")
 	else:
 		_face(int(signf(to_target.x)))
@@ -347,10 +351,16 @@ func _die() -> void:
 func _update_visual() -> void:
 	if _sprite == null:
 		return
+	# 受击：白闪 + 过曝（分量 >1 在加色混合下发白，「被砍中」一眼可见）
 	if _flash > 0.0:
-		_sprite.modulate = Color(1.0, 0.35, 0.35, 1.0)
-	else:
-		_sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		_sprite.modulate = Color(1.8, 1.2, 1.2, 1.0)
+		return
+	# 攻击前摇：红色警示呼吸，给玩家预判窗口
+	if _windup > 0.0:
+		var pulse: float = 0.5 + 0.5 * sin(_tell_phase * TAU * WINDUP_TELL)
+		_sprite.modulate = Color(1.0, 1.0 - 0.4 * pulse, 1.0 - 0.4 * pulse, 1.0)
+		return
+	_sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 
 func _play_anim(name: String) -> void:
@@ -402,4 +412,5 @@ func reset() -> void:
 	_knockback = Vector2.ZERO
 	_attack_timer = 0.0
 	_windup = 0.0
+	_tell_phase = 0.0
 	_flash = 0.0

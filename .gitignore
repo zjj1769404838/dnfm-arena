@@ -1,16 +1,10 @@
 # 构建产物（可重建）
 /build/
 /godot/.godot/
-/godot/android/build/
 /godot/android/.gradle/
 /godot/android/captures/
 /godot/android/local.properties
 /godot/android/.cxx/
-/godot/android/build/src/main/assets/
-/godot/android/build/src/debug/
-/godot/android/build/src/release/
-/godot/android/build/src/instrumented/assets/
-/godot/android/build/assetPackInstallTime/build/
 
 # 临时凭据工作目录（绝不入库）
 .tmp_git/
@@ -24,3 +18,25 @@
 Thumbs.db
 __pycache__/
 *.pyc
+
+# ---- Android 自定义 Gradle 构建模板（godot/android/）----
+# ★ 模板骨架（godot/android/build/build.gradle 等）必须入库，
+#   否则 Godot 自定义 Gradle 构建会因缺 build.gradle 而失败。
+#   所以这里逐条排除子路径，绝不能用 /godot/android/build/ 整目录规则。
+godot/android/libs/
+godot/android/.gradle/
+godot/android/captures/
+godot/android/local.properties
+godot/android/.cxx/
+godot/android/build/build/
+godot/android/build/libs/
+godot/android/build/src/release/
+godot/android/build/.gdignore
+godot/android/build/.gradle/
+godot/android/build/captures/
+godot/android/build/local.properties
+godot/android/build/.cxx/
+godot/android/build/src/main/assets/
+godot/android/build/src/debug/
+godot/android/build/src/instrumented/assets/
+godot/android/build/assetPackInstallTime/build/

@@ -35,7 +35,7 @@ const MAX_FALL := 520.0        # 本工程契约未给最大下落速度，取�
 const KNOCKBACK_X := 190.0
 const KNOCKBACK_Y := -170.0
 const FLICKER_STEP := 0.06
-const FLASH_TIME := 0.12
+const FLASH_TIME := 0.18
 const ANIM_FALLBACK: Array[String] = ["idle_breathe", "idle", "walk"]
 
 var _sf: SpriteFrames = null
@@ -47,6 +47,7 @@ var _built: bool = false
 var _coyote: float = 0.0
 var _buffer: float = 0.0
 var _jump_held: bool = false
+var _cut_done: bool = false      # 本次起跳是否已做过松手截断（起跳时重置）
 
 var _attack_cd: float = 0.0        # 普攻间隔（ATTACK_CD）
 var _attack_active: float = 0.0   # 判定框开启剩余时间
@@ -310,13 +311,24 @@ func _jump(delta: float) -> void:
 		_buffer = 0.0
 		_coyote = 0.0
 		_jump_held = true
+		_cut_done = false
 		velocity.y = GameConfig.PLAYER_JUMP_V
 		jumped.emit()
 	elif _buffer > 0.0:
 		_buffer = maxf(0.0, _buffer - delta)
 
-	if not _act_pressed("p_jump") and velocity.y < 0.0:
-		velocity.y *= GameConfig.PLAYER_JUMP_CUT
+	# 松手瞬间截断上升速度（只在松手那一刻截一次，不是每帧截）。
+	# 上升速度是负数，目标是「截断后上升速度幅度不超过 PLAYER_JUMP_CUT_MIN = 260 px/s」：
+	#   260²/(2*1300) ≈ 26px ≈ 1.63 格 —— 点按跳保底这个高度。
+	# 还在强上升期（|vy| ≥ 260）时直接夹到 -260；
+	# 已经接近顶点（|vy| < 260）时只做比例截断，不能反向加速。
+	# 满按不触发本分支，跳高与滞空完全不变。
+	if not _cut_done and velocity.y < 0.0 and not _act_pressed("p_jump"):
+		_cut_done = true
+		if velocity.y <= -GameConfig.PLAYER_JUMP_CUT_MIN:
+			velocity.y = -GameConfig.PLAYER_JUMP_CUT_MIN
+		else:
+			velocity.y = velocity.y * GameConfig.PLAYER_JUMP_CUT
 
 
 # =========================================================
@@ -458,9 +470,9 @@ func _update_visual(delta: float) -> void:
 	if _sprite == null:
 		return
 
-	# 受击闪红
+	# 受击闪红（红色闪白）：与无敌帧淡出闪烁互斥，受击优先。
 	if _flash > 0.0:
-		_sprite.modulate = Color(1.0, 0.42, 0.42, 1.0)
+		_sprite.modulate = Color(1.0, 0.45, 0.45, 1.0)
 		return
 	# 无敌帧闪烁
 	if invuln > 0.0:

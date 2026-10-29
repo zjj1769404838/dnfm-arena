@@ -18,10 +18,30 @@ const PLAYER_JUMP_V := -430.0
 const PLAYER_GRAVITY := 1300.0
 const PLAYER_COYOTE := 0.10
 const PLAYER_BUFFER := 0.12
-const PLAYER_JUMP_CUT := 0.45
+const PLAYER_JUMP_CUT := 0.55
+## 跳跃截断后的上升速度下限（px/s）。
+## 截断会把上升速度砍到 55%，短按几乎砍没；加下限后点按跳高 ≥ 26px ≈ 1.63 格，
+## 满按跳高与滞空完全不变（截断只在「松手且仍在上升」时触发）。
+const PLAYER_JUMP_CUT_MIN := 260.0
 const PLAYER_MAX_HP := 12
 const PLAYER_INVULN := 0.7
 const COMBO_WINDOW := 1.2
+
+# ---------- 战斗反馈（命中定格 / 屏震 / 触觉） ----------
+## 命中定格（hit-stop）：冻结角色的秒数。动作游戏的打击感三件套之一。
+const HITSTOP_HIT := 0.08
+const HITSTOP_KILL := 0.14
+## 屏震幅度（像素），随时间线性衰减
+const SHAKE_HIT := 1.5
+const SHAKE_KILL := 3.0
+const SHAKE_HURT := 4.0
+const SHAKE_DECAY := 6.0
+## 触觉反馈（需导出预设开 VIBRATE 权限；语义固定：命中=轻、受伤=重）
+const VIBRATE_ENABLED := true
+const VIBRATE_HIT_MS := 12
+const VIBRATE_HURT_MS := 30
+const VIBRATE_PICKUP_MS := 8
+const VIBRATE_AMPLITUDE := 0.3
 
 # ---------- 连招与技能 ----------
 const ATTACK_CD := 0.30

@@ -12,7 +12,7 @@ Godot 4.7.2 / 640×360 逻辑画布 / tile 16 / 像素风（hibit 32 色）。
 ### 桌面运行（开发）
 
 ```bash
-cd D:/my-projects/games/dnfm-arena/godot
+cd D:/my-projects/games/game-4/dnfm-arena/godot
 "D:/apps/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --path .
 ```
 
@@ -22,7 +22,7 @@ cd D:/my-projects/games/dnfm-arena/godot
 ### 无头冒烟（CI / 自检）
 
 ```bash
-cd D:/my-projects/games/dnfm-arena/godot
+cd D:/my-projects/games/game-4/dnfm-arena/godot
 "D:/apps/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path . res://smoke_test.tscn
 ```
 
@@ -31,8 +31,8 @@ cd D:/my-projects/games/dnfm-arena/godot
 ### 截图（必须带窗口，`--headless` 会卡死）
 
 ```bash
-cd D:/my-projects/games/dnfm-arena/godot
-"D:/apps/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --path . res://screenshot.tscn -- play "D:/my-projects/games/dnfm-arena/docs/shots/play.png"
+cd D:/my-projects/games/game-4/dnfm-arena/godot
+"D:/apps/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --path . res://screenshot.tscn -- play "D:/my-projects/games/game-4/dnfm-arena/docs/shots/play.png"
 ```
 
 参数：`title` | `play` | `result`，输出路径必须是**绝对路径且带 .png**。
@@ -42,9 +42,9 @@ cd D:/my-projects/games/dnfm-arena/godot
 ```bash
 export JAVA_HOME="D:/apps/jdk-17"; export PATH="$JAVA_HOME/bin:$PATH"
 export ANDROID_HOME="D:/apps/android-sdk"; export ANDROID_SDK_ROOT="D:/apps/android-sdk"
-cd D:/my-projects/games/dnfm-arena
+cd D:/my-projects/games/game-4/dnfm-arena
 "D:/apps/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path godot \
-  --export-debug Android "D:/my-projects/games/dnfm-arena/build/dnfm-arena.apk"
+  --export-debug Android "D:/my-projects/games/game-4/dnfm-arena/build/dnfm-arena.apk"
 ```
 
 产物：`build/dnfm-arena.apk`（30,469,418 B）

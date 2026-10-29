@@ -21,8 +21,13 @@ extends Control
 ##   is_active() -> bool
 ##   move_axis() -> float      —— -1 / 0 / +1（只读便利接口，真实输出走 Input）
 ##   setup(font_path: String)  —— 可选，给动作键加中文标签
+##   set_pause_mode(v: bool)    —— 暂停态：唯一暂停键的文案切「继续」，并只响应这一个键
+##   arm_start_tap()           —— 标题态：等任意点击/触摸，发 start_tap_pressed 后自动复位
+##   arm_restart_tap()         —— 结算态：等任意点击/触摸，发 restart_tap_pressed 后自动复位
 ##   signal action_button_pressed(action: StringName)
 ##   signal action_button_released(action: StringName)
+##   signal start_tap_pressed()
+##   signal restart_tap_pressed()
 ##
 
 # =====================================================================
@@ -36,6 +41,8 @@ const ACTION_JUMP := &"p_jump"
 const ACTION_ATTACK := &"p_attack"
 const ACTION_SKILL := &"p_skill"
 const ACTION_GHOST := &"p_ghost"
+## 暂停：主控在 main.gd 运行时注册 p_pause；本键是「按下瞬间」语义。
+const ACTION_PAUSE := &"p_pause"
 
 # ---- 摇杆（左下角，静态）----
 const STICK_CENTER := Vector2(62.0, 292.0)
@@ -66,6 +73,18 @@ const GHOST_CENTER := Vector2(504.0, 212.0)
 const GHOST_VISUAL_RADIUS := 20.0
 const GHOST_TOUCH_RADIUS := 44.0
 
+# ---- 暂停键（顶部，与 HUD 层暂停按钮错开）----
+## HUD 层另有一个暂停按钮（主控负责），两者会同处右上区域。
+## 触屏暂停键因此**左移并下移**，放在 HUD 暂停键左侧，避免两个热区重叠导致误触。
+## y 取 24 而非 lead 建议的 8：半径 20 的圆在 y=8 会被屏幕顶边裁掉一半。
+## x 取 512：HUD 暂停键在 (584,4)、尺寸 48×48（占 x 584~632），
+## 两键中心距 = sqrt(72²+20²) ≈ 75px > 44(本键热区) + 24(HUD 半宽) = 68px，
+## 两个热区不重叠，不会误触。
+## 坐标再经 _safe() 做安全区内缩，避开刘海 / 挖孔。
+const PAUSE_CENTER := Vector2(512.0, 24.0)
+const PAUSE_VISUAL_RADIUS := 20.0
+const PAUSE_TOUCH_RADIUS := 44.0
+
 ## 控件底边与屏幕底边的最小留白（逻辑像素）
 const BOTTOM_MARGIN := 10.0
 ## 是否启用安全区内缩（避开 Android 手势条与挖孔）
@@ -94,6 +113,8 @@ const COL_SKILL := Color(0.42, 0.78, 1.0, 0.55)
 const COL_SKILL_ON := Color(0.68, 0.90, 1.0, 0.88)
 const COL_GHOST := Color(0.62, 0.45, 0.95, 0.55)
 const COL_GHOST_ON := Color(0.80, 0.68, 1.0, 0.88)
+const COL_PAUSE := Color(0.72, 0.78, 0.86, 0.55)
+const COL_PAUSE_ON := Color(0.90, 0.94, 1.0, 0.88)
 const COL_LABEL := Color(0.96, 0.95, 0.98, 0.92)
 const COL_LABEL_EDGE := Color(0.0, 0.0, 0.0, 0.92)
 
@@ -107,9 +128,15 @@ const ROLE_JUMP := &"jump"
 const ROLE_ATTACK := &"attack"
 const ROLE_SKILL := &"skill"
 const ROLE_GHOST := &"ghost"
+const ROLE_PAUSE := &"pause"
 
 ## 桌面端调试用的鼠标虚拟 index
 const POINTER_MOUSE := -1
+
+## arm 模式：0=无，1=等「点屏幕开始」，2=等「点屏幕重开」（两者互斥）。
+const ARM_NONE := 0
+const ARM_START := 1
+const ARM_RESTART := 2
 
 
 ## 承载绘制的内部节点：放在 CanvasLayer 里，避免被 Camera2D 平移/缩放影响。
@@ -144,12 +171,20 @@ var _input_seen := false
 var _mouse_down := false
 ## 标签字体（可选）
 var _font: Font = null
+## 是否处于暂停态：唯一暂停键的文案变「继续」，且只响应这一个键。
+var _pause_mode := false
+## arm 模式：0=无，1=等开始，2=等重开（两者互斥）。
+var _arm_mode := ARM_NONE
 
 var _layer: CanvasLayer
 var _pad: Pad
 
 signal action_button_pressed(action: StringName)
 signal action_button_released(action: StringName)
+## 标题态：任意点击/触摸（主控接它开一局）
+signal start_tap_pressed()
+## 结算态：任意点击/触摸（主控接它重开一局）
+signal restart_tap_pressed()
 
 # =====================================================================
 # 初始化
@@ -190,14 +225,39 @@ func setup(font_path: String = "") -> void:
 
 ## main.gd 在 State.PLAY 时 set_active(true)；其余状态 false。
 ## 关闭时隐藏控件并把所有虚拟输入清零，避免角色暂停时还在跑。
+## 关闭同时复位 arm 模式（arm 模式只在标题/结算态有效）。
 func set_active(value: bool) -> void:
-	if active == value:
-		return
 	active = value
 	if not active:
 		_clear_all()
+	# arm 模式只在「控件关闭」时有效：开控件（进 PLAY）必须复位，
+	# 关控件（回标题/结算）也复位，避免 arm 状态跨态残留。
+	_arm_mode = ARM_NONE
 	_refresh_visibility()
 	_redraw()
+
+## 暂停态：唯一暂停键的文案切「继续」，且此时只响应这一个键（其余键不生效，
+## 避免暂停时角色还在跑）。语义仍是「按下瞬间」发一次 action_button_pressed("p_pause")。
+func set_pause_mode(v: bool) -> void:
+	if _pause_mode == v:
+		return
+	_pause_mode = v
+	if v:
+		# 进入暂停态：把轴与所有按钮输入清零，防止暂停时角色仍在移动 / 连招仍在跑。
+		_clear_all()
+	_redraw()
+
+
+## 标题态：等任意一次点击/触摸，发 start_tap_pressed 后自动退出 arm 模式。
+## 与 arm_restart_tap() 互斥：后调用的那个覆盖先调用的。
+func arm_start_tap() -> void:
+	_arm_mode = ARM_START
+
+
+## 结算态：等任意一次点击/触摸，发 restart_tap_pressed 后自动退出 arm 模式。
+## 与 arm_start_tap() 互斥。
+func arm_restart_tap() -> void:
+	_arm_mode = ARM_RESTART
 
 
 func is_active() -> bool:
@@ -218,6 +278,11 @@ func is_shown() -> bool:
 # =====================================================================
 
 func _input(event: InputEvent) -> void:
+	# ★ arm 模式优先级最高：标题/结算态等「任意点击」，处理完立刻 return，
+	#   不再走摇杆/按钮逻辑，也**不注入任何 Input.action_press**（避免误触攻击/移动）。
+	if _arm_mode != ARM_NONE and not active:
+		if _consume_arm_event(event):
+			return
 	if event is InputEventScreenTouch:
 		var te := event as InputEventScreenTouch
 		if not _touch_seen:
@@ -265,6 +330,33 @@ func _input(event: InputEvent) -> void:
 		_move_pointer(POINTER_MOUSE, _to_design(mm.position))
 
 
+## arm 模式的事件消费：收到「按下」类事件就发对应信号并退出 arm 模式。
+## 只认按下瞬间（pressed），拖动与抬起不触发；一次性，触发后 _arm_mode 复位。
+## **绝不注入 Input.action_press**，避免标题/结算态误触攻击或移动。
+func _consume_arm_event(event: InputEvent) -> bool:
+	var hit := false
+	if event is InputEventScreenTouch:
+		var te := event as InputEventScreenTouch
+		hit = te.pressed
+	elif event is InputEventMouseButton:
+		var me := event as InputEventMouseButton
+		hit = me.pressed and me.button_index == MOUSE_BUTTON_LEFT
+	if not hit:
+		return false
+	# 桌面端也要记住「用户动过屏幕」，否则进 PLAY 后控件仍判定为无输入而隐藏。
+	_input_seen = true
+	# 真实触摸一旦出现，后续忽略引擎模拟出的鼠标事件，避免同一根手指处理两次。
+	if event is InputEventScreenTouch:
+		_touch_seen = true
+	var mode := _arm_mode
+	_arm_mode = ARM_NONE
+	if mode == ARM_START:
+		start_tap_pressed.emit()
+	elif mode == ARM_RESTART:
+		restart_tap_pressed.emit()
+	return true
+
+
 ## 事件坐标 → 640×360 设计空间坐标。
 ## 引擎派发触摸事件时已经把窗口坐标逆变换回视口坐标，
 ## 事件里的 position 就是视口坐标；这里只需要按可见视口比例归一到设计分辨率。
@@ -288,6 +380,10 @@ func _begin_pointer(index: int, pos: Vector2) -> void:
 		return
 	var role := _role_at(pos)
 	if role == ROLE_NONE:
+		return
+	# 暂停态只响应暂停键（唯一那个「继续」键），其余键一律不捕获，
+	# 避免暂停时误触攻击/技能。
+	if _pause_mode and role != ROLE_PAUSE:
 		return
 	# 捕获：该手指从此归属于这个控件，滑出不释放。
 	_pointers[index] = role
@@ -383,6 +479,10 @@ func _buttons() -> Array:
 		{"role": ROLE_GHOST, "center": _safe(GHOST_CENTER), "visual": GHOST_VISUAL_RADIUS,
 			"touch": GHOST_TOUCH_RADIUS, "action": ACTION_GHOST,
 			"color": COL_GHOST, "color_on": COL_GHOST_ON, "label": "鬼"},
+		{"role": ROLE_PAUSE, "center": _safe(PAUSE_CENTER), "visual": PAUSE_VISUAL_RADIUS,
+			"touch": PAUSE_TOUCH_RADIUS, "action": ACTION_PAUSE,
+			"color": COL_PAUSE, "color_on": COL_PAUSE_ON,
+			"label": "继续" if _pause_mode else "暂停"},
 	]
 
 
@@ -407,6 +507,16 @@ func _apply_role(role: StringName, pressed: bool) -> void:
 		ROLE_GHOST:
 			_set_button_pressed(role, pressed)
 			_action_set(ACTION_GHOST, pressed)
+		ROLE_PAUSE:
+			# 暂停键只走信号，不做 Input.action_press。
+			# 原因：主控同时监听 action_button_pressed("p_pause") 与
+			# Input.is_action_just_pressed("p_pause")，两条路径都触发会
+			# 「进暂停后同帧又退出暂停」。信号是按下瞬间的一次性语义。
+			_set_button_pressed(role, pressed)
+			if pressed:
+				action_button_pressed.emit(ACTION_PAUSE)
+			else:
+				action_button_released.emit(ACTION_PAUSE)
 	_redraw()
 
 
@@ -465,14 +575,18 @@ func paint_into(canvas: CanvasItem) -> void:
 	if not (DEBUG_FORCE_SHOW or DisplayServer.is_touchscreen_available() or _input_seen):
 		return
 
-	# 摇杆底盘 + 把手
-	var center := _stick_center()
-	_draw_disc(canvas, center, STICK_VISUAL_RADIUS, COL_STICK)
-	_draw_disc(canvas, center + _knob_offset, STICK_KNOB_RADIUS, COL_KNOB)
+	# 摇杆底盘 + 把手（暂停态只留暂停键，画面更干净也避免误触）
+	if not _pause_mode:
+		var center := _stick_center()
+		_draw_disc(canvas, center, STICK_VISUAL_RADIUS, COL_STICK)
+		_draw_disc(canvas, center + _knob_offset, STICK_KNOB_RADIUS, COL_KNOB)
 
 	# 动作键
 	for b in _buttons():
 		var role: StringName = b["role"]
+		# 暂停态只画暂停键（文案「继续」）。
+		if _pause_mode and role != ROLE_PAUSE:
+			continue
 		var pressed: bool = _pressed_roles.has(role)
 		var col: Color = b["color_on"] if pressed else b["color"]
 		var pos: Vector2 = b["center"]

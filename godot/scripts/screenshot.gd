@@ -40,6 +40,12 @@ func _run() -> void:
 			_game.call("_enter_win")
 			await get_tree().create_timer(0.5).timeout
 			_capture()
+		"pause":
+			_game.call("start_game")
+			await get_tree().create_timer(0.8).timeout
+			_game.call("_enter_pause")
+			await get_tree().create_timer(0.5).timeout
+			_capture()
 		_:
 			_capture()
 	await get_tree().process_frame

@@ -2,7 +2,7 @@
  "entity": "brute_walk",
  "style": "hibit",
  "params": {
-  "project": "D:/my-projects/games/dnfm-arena",
+  "project": "D:/my-projects/games/game-4/dnfm-arena",
   "entity": "brute_walk",
   "frames": "1,2,3",
   "mode": "anchor",
@@ -22,7 +22,7 @@
  "frames": [
   {
    "frame": 1,
-   "file": "D:/my-projects/games/dnfm-arena\\assets\\raw\\brute_walk\\brute_walk_f1.png",
+   "file": "D:/my-projects/games/game-4/dnfm-arena\\assets\\raw\\brute_walk\\brute_walk_f1.png",
    "seed": 90213,
    "denoise": 0.55,
    "mode": "anchor",
@@ -30,7 +30,7 @@
   },
   {
    "frame": 2,
-   "file": "D:/my-projects/games/dnfm-arena\\assets\\raw\\brute_walk\\brute_walk_f2.png",
+   "file": "D:/my-projects/games/game-4/dnfm-arena\\assets\\raw\\brute_walk\\brute_walk_f2.png",
    "seed": 90214,
    "denoise": 0.55,
    "mode": "anchor",
@@ -38,7 +38,7 @@
   },
   {
    "frame": 3,
-   "file": "D:/my-projects/games/dnfm-arena\\assets\\raw\\brute_walk\\brute_walk_f3.png",
+   "file": "D:/my-projects/games/game-4/dnfm-arena\\assets\\raw\\brute_walk\\brute_walk_f3.png",
    "seed": 90215,
    "denoise": 0.55,
    "mode": "anchor",

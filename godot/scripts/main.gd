@@ -4,10 +4,19 @@
 ## 各模块接口见 res://scripts/game_config.gd 与 docs/contracts.md。
 class_name DnfmArena extends Node2D
 
-enum State { TITLE, PLAY, WIN, LOSE }
+enum State { TITLE, PLAY, WIN, LOSE, PAUSE }
 
 const SPAWN_INTERVAL := 0.35
 const WAVE_CLEAR_DELAY := 1.6
+
+# ---- 战斗反馈（hit-stop 定格 / 屏震 / 触觉） ----
+## hit-stop：命中瞬间冻结一小段时间，模拟打击的「顿帧」。用 Engine.time_scale 实现。
+var _hitstop: float = 0.0
+## 屏震：相机偏移量，随时间线性衰减。
+var _shake_amount: float = 0.0
+var _shake_offset: Vector2 = Vector2.ZERO
+## 触觉震动防抖：避免同一帧多次触发。
+var _last_vibrate_ms: int = 0
 
 # ---- 公开状态（冒烟测试与 HUD 读取） ----
 var state: int = State.TITLE
@@ -39,6 +48,20 @@ var _hero_sf: SpriteFrames = null
 var _goblin_sf: SpriteFrames = null
 var _brute_sf: SpriteFrames = null
 var _rng := RandomNumberGenerator.new()
+## hit-stop 结束时刻（真实毫秒，不受 time_scale 影响）
+var _hitstop_until_ms: int = 0
+## hit-stop 已持续的帧数（墙钟不推进时的兜底）
+var _hitstop_frames: int = 0
+## hit-stop 最多持续的帧数。0.08s 定格在 60fps 下约 5 帧，8 帧留足余量。
+## 必须有帧数上限：无头/无 vsync 环境下墙钟推进远慢于帧推进，
+## 只靠墙钟会让 time_scale 长时间停在 0.05，把按 delta 计时的波次推进一起拖死。
+const HITSTOP_MAX_FRAMES := 8
+## 上一次真实时间戳，用于屏震/定格的实时衰减
+var _last_real_ms: int = 0
+## 暂停时冻结的节点（玩家/敌人/掉落），恢复时逐个还原
+var _frozen_nodes: Array = []
+## 同帧防抖：暂停键可能同时来自键盘与触屏，避免一帧内切换两次
+var _pause_toggle_frame: int = -1
 
 
 func _ready() -> void:
@@ -66,6 +89,7 @@ func _setup_actions() -> void:
 		"p_ghost": [KEY_L],
 		"p_start": [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER],
 		"p_restart": [KEY_R],
+		"p_pause": [KEY_ESCAPE, KEY_P],
 	}
 	for action in defs.keys():
 		if not InputMap.has_action(action):
@@ -194,6 +218,7 @@ func _spawn_hud() -> void:
 	hud.name = "HUD"
 	add_child(hud)
 	hud.call("setup", GameConfig.FONT_PATH)
+	_connect_hud_signals()
 
 
 func _spawn_touch() -> void:
@@ -202,6 +227,35 @@ func _spawn_touch() -> void:
 	add_child(touch)
 	if touch.has_method("set_active"):
 		touch.call("set_active", false)
+	_connect_touch_signals()
+
+
+## HUD 信号接线。队友实现可能晚于主控落地，全部走 has_signal 防御式连接，
+## 缺信号时静默跳过，保证任何组合下都能编译与运行。
+func _connect_hud_signals() -> void:
+	if hud == null:
+		return
+	var pairs := {
+		"title_start_pressed": "_on_hud_title_start",
+		"result_restart_pressed": "_on_hud_result_restart",
+		"pause_pressed": "_on_hud_pause",
+		"resume_pressed": "_on_hud_resume",
+		"pause_restart_pressed": "_on_hud_pause_restart",
+	}
+	for sig in pairs.keys():
+		if hud.has_signal(sig):
+			hud.connect(sig, Callable(self, str(pairs[sig])))
+
+
+func _connect_touch_signals() -> void:
+	if touch == null:
+		return
+	if touch.has_signal("start_tap_pressed"):
+		touch.connect("start_tap_pressed", Callable(self, "_on_touch_start_tap"))
+	if touch.has_signal("restart_tap_pressed"):
+		touch.connect("restart_tap_pressed", Callable(self, "_on_touch_restart_tap"))
+	if touch.has_signal("action_button_pressed"):
+		touch.connect("action_button_pressed", Callable(self, "_on_touch_action"))
 
 
 # ───────────────────────── 音频
@@ -250,6 +304,8 @@ func _enter_title() -> void:
 	_state_timer = 0.0
 	if touch != null and touch.has_method("set_active"):
 		touch.call("set_active", false)
+	if touch != null and touch.has_method("arm_start_tap"):
+		touch.call("arm_start_tap")
 	if hud != null:
 		hud.call("show_title", 0)
 
@@ -261,6 +317,11 @@ func start_game() -> void:
 	max_combo = 0
 	elapsed = 0.0
 	_hint_timer = 0.0
+	_hitstop_until_ms = 0
+	_hitstop_frames = 0
+	_shake_amount = 0.0
+	_shake_offset = Vector2.ZERO
+	Engine.time_scale = 1.0
 	_clear_enemies()
 	_clear_pickups()
 	if player != null:
@@ -269,11 +330,15 @@ func start_game() -> void:
 	if camera != null:
 		camera.position = player.position
 		camera.reset_smoothing()
+		camera.offset = Vector2.ZERO
 	if hud != null:
 		hud.call("hide_all")
 		hud.call("show_hud")
+	_update_hud_values()
 	if touch != null and touch.has_method("set_active"):
 		touch.call("set_active", true)
+	if touch != null and touch.has_method("set_pause_mode"):
+		touch.call("set_pause_mode", false)
 	_start_wave(0)
 
 
@@ -283,6 +348,8 @@ func _enter_win() -> void:
 	play_sfx("win")
 	if touch != null and touch.has_method("set_active"):
 		touch.call("set_active", false)
+	if touch != null and touch.has_method("arm_restart_tap"):
+		touch.call("arm_restart_tap")
 	if hud != null:
 		hud.call("show_result", true, _collect_stats())
 
@@ -293,8 +360,109 @@ func _enter_lose() -> void:
 	play_sfx("lose")
 	if touch != null and touch.has_method("set_active"):
 		touch.call("set_active", false)
+	if touch != null and touch.has_method("arm_restart_tap"):
+		touch.call("arm_restart_tap")
 	if hud != null:
 		hud.call("show_result", false, _collect_stats())
+
+
+# ───────────────────────── 暂停
+func _enter_pause() -> void:
+	if state != State.PLAY:
+		return
+	state = State.PAUSE
+	_state_timer = 0.0
+	Engine.time_scale = 1.0
+	_hitstop_until_ms = 0
+	_freeze_world(true)
+	if touch != null and touch.has_method("set_pause_mode"):
+		touch.call("set_pause_mode", true)
+	if hud != null and hud.has_method("show_pause"):
+		hud.call("show_pause")
+
+
+func _exit_pause() -> void:
+	if state != State.PAUSE:
+		return
+	state = State.PLAY
+	_state_timer = 0.0
+	_freeze_world(false)
+	if touch != null and touch.has_method("set_pause_mode"):
+		touch.call("set_pause_mode", false)
+	if hud != null and hud.has_method("hide_all"):
+		hud.call("hide_all")
+	if hud != null and hud.has_method("show_hud"):
+		hud.call("show_hud")
+
+
+## 冻结/恢复世界里的可动节点（玩家、敌人、掉落）。
+## 不依赖 process_mode 的写法，避免误伤 UI 层。
+func _freeze_world(frozen: bool) -> void:
+	var targets: Array = []
+	if player != null:
+		targets.append(player)
+	for e in enemies:
+		if is_instance_valid(e):
+			targets.append(e)
+	for p in pickups:
+		if is_instance_valid(p):
+			targets.append(p)
+	for n in targets:
+		if frozen:
+			if not _frozen_nodes.has(n):
+				_frozen_nodes.append(n)
+			n.set("process_mode", Node.PROCESS_MODE_DISABLED)
+		else:
+			n.set("process_mode", Node.PROCESS_MODE_INHERIT)
+			if _frozen_nodes.has(n):
+				_frozen_nodes.erase(n)
+
+
+# ───────────────────────── HUD / 触控 回调
+func _on_hud_title_start() -> void:
+	if state == State.TITLE:
+		start_game()
+
+
+func _on_hud_result_restart() -> void:
+	if state == State.WIN or state == State.LOSE:
+		start_game()
+
+
+func _on_hud_pause() -> void:
+	_enter_pause()
+
+
+func _on_hud_resume() -> void:
+	_exit_pause()
+
+
+func _on_hud_pause_restart() -> void:
+	_exit_pause()
+	start_game()
+
+
+func _on_touch_start_tap() -> void:
+	if state == State.TITLE:
+		start_game()
+
+
+func _on_touch_restart_tap() -> void:
+	if state == State.WIN or state == State.LOSE:
+		start_game()
+
+
+func _on_touch_action(action: String) -> void:
+	if action == "p_pause":
+		# 同帧可能同时收到键盘与触屏的暂停，做一次防抖
+		var frame: int = Engine.get_process_frames()
+		if frame == _pause_toggle_frame:
+			return
+		_pause_toggle_frame = frame
+		if state == State.PLAY:
+			_enter_pause()
+		elif state == State.PAUSE:
+			_exit_pause()
 
 
 func _collect_stats() -> Dictionary:
@@ -353,17 +521,24 @@ func _spawn_enemy(kind: String, x: float) -> void:
 # ───────────────────────── 主循环
 func _process(delta: float) -> void:
 	_state_timer += delta
+	_tick_feedback(delta)
 	match state:
 		State.TITLE:
 			if Input.is_action_just_pressed("p_start") or Input.is_action_just_pressed("p_attack"):
 				start_game()
 		State.PLAY:
 			_tick_play(delta)
+			if Input.is_action_just_pressed("p_pause"):
+				_enter_pause()
 		State.WIN, State.LOSE:
 			if Input.is_action_just_pressed("p_restart"):
 				start_game()
+		State.PAUSE:
+			if Input.is_action_just_pressed("p_pause"):
+				_exit_pause()
 	_update_camera(delta)
 	_update_hint(delta)
+	_apply_camera_shake()
 
 
 func _tick_play(delta: float) -> void:
@@ -495,12 +670,81 @@ func _on_player_attacked(kind: String) -> void:
 
 
 func _on_player_hit_enemy(enemy: Node2D, damage: int) -> void:
-	pass
+	# 打击感三件套：命中定格 + 屏震 + 触觉震动
+	_apply_hitstop(GameConfig.HITSTOP_HIT)
+	_apply_shake(GameConfig.SHAKE_HIT)
+	_vibrate(GameConfig.VIBRATE_HIT_MS)
+	# 击杀比普通命中更重：更强的定格与屏震
+	if enemy != null and is_instance_valid(enemy) and bool(enemy.get("dead")):
+		_apply_hitstop(GameConfig.HITSTOP_KILL)
+		_apply_shake(GameConfig.SHAKE_KILL)
+		_vibrate(GameConfig.VIBRATE_HIT_MS * 2)
 
 
 func _on_player_damaged(amount: int) -> void:
 	play_sfx("hurt")
+	_apply_shake(GameConfig.SHAKE_HURT)
+	_vibrate(GameConfig.VIBRATE_HURT_MS)
 	_update_hud_values()
+
+
+# =========================================================
+# 战斗反馈：命中定格 / 屏震 / 触觉震动
+# =========================================================
+## 命中定格：用 Engine.time_scale 降到 0 附近再线性恢复。
+## 必须在 _process 里用真实时间恢复，否则 time_scale=0 时自己也不会动。
+func _apply_hitstop(seconds: float) -> void:
+	if seconds <= 0.0:
+		return
+	var now: int = Time.get_ticks_msec()
+	if now < _hitstop_until_ms:
+		return
+	_hitstop_until_ms = now + int(seconds * 1000.0)
+	_hitstop_frames = 0
+	Engine.time_scale = 0.05
+
+
+func _apply_shake(amount: float) -> void:
+	_shake_amount = maxf(_shake_amount, amount)
+
+
+func _vibrate(ms: int) -> void:
+	if not GameConfig.VIBRATE_ENABLED or ms <= 0:
+		return
+	Input.vibrate_handheld(ms, GameConfig.VIBRATE_AMPLITUDE)
+
+
+## 每帧推进定格恢复与屏震衰减。使用真实时间，不受 time_scale 影响。
+func _tick_feedback(delta: float) -> void:
+	# time_scale 生效时 delta 会被压缩，屏震与定格必须按真实时间推进，
+	# 否则定格期间连恢复都恢复不了（死锁在慢动作里）。
+	var scale: float = maxf(0.0001, Engine.time_scale)
+	var real_delta: float = delta / scale
+	var now: int = Time.get_ticks_msec()
+	if Engine.time_scale < 1.0:
+		# 双保险：墙钟到点，或已累计够帧数（无头/卡顿时墙钟可能不推进）。
+		# 帧数兜底保证定格一定会结束，否则 time_scale 永久停在 0.05，
+		# 会把所有按 delta 计时的逻辑（波次推进）一起拖死。
+		_hitstop_frames += 1
+		if now >= _hitstop_until_ms or _hitstop_frames >= HITSTOP_MAX_FRAMES:
+			Engine.time_scale = 1.0
+			_hitstop_frames = 0
+	else:
+		_shake_amount = maxf(0.0, _shake_amount - GameConfig.SHAKE_DECAY * real_delta)
+	if _shake_amount > 0.05:
+		_shake_offset = Vector2(
+			_rng.randf_range(-_shake_amount, _shake_amount),
+			_rng.randf_range(-_shake_amount, _shake_amount))
+	else:
+		_shake_amount = 0.0
+		_shake_offset = Vector2.ZERO
+
+
+## 相机跟随 + 屏震偏移
+func _apply_camera_shake() -> void:
+	if camera == null:
+		return
+	camera.offset = _shake_offset
 
 
 func _on_player_died() -> void:
