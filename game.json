@@ -1,0 +1,18 @@
+{
+ "name": "dnfm-arena",
+ "title": "地下城勇士 Q版",
+ "genre": "beat_em_up",
+ "theme": "Q版地下城横版动作：勇士挥剑连斩、释放鬼影斩，抵御一波波小怪与哥布林，拾取金币与经验升级，通关结算",
+ "style": "hibit",
+ "canvas": [
+  640,
+  360
+ ],
+ "tile": 16,
+ "camera": "side",
+ "controls": "touch_joystick_actions",
+ "orientation": "landscape",
+ "palette": 32,
+ "anim_fps": 10,
+ "art_notes": "同画布同锚点；动画帧用固定 seed + 极小提示词差异保证连续"
+}

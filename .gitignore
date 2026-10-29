@@ -1,0 +1,26 @@
+# 构建产物（可重建）
+/build/
+/godot/.godot/
+/godot/android/build/
+/godot/android/.gradle/
+/godot/android/captures/
+/godot/android/local.properties
+/godot/android/.cxx/
+/godot/android/build/src/main/assets/
+/godot/android/build/src/debug/
+/godot/android/build/src/release/
+/godot/android/build/src/instrumented/assets/
+/godot/android/build/assetPackInstallTime/build/
+
+# 临时凭据工作目录（绝不入库）
+.tmp_git/
+
+# 发布用 APK 本体不入库（走 GitHub Release 分发）
+/dist/*.apk
+/dist/*.idsig
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

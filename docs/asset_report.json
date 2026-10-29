@@ -1,0 +1,950 @@
+{
+ "project": "D:/my-projects/games/dnfm-arena",
+ "genre": "beat_em_up",
+ "entities": {
+  "hero_idle": {
+   "frames_expected": 1,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "hero_idle.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 114.7,
+     "changed_px": -1,
+     "colors": 30
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.859
+    }
+   ]
+  },
+  "hero_idle_breathe": {
+   "frames_expected": 4,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "hero_idle_breathe_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 107.8,
+     "changed_px": -1,
+     "colors": 33
+    },
+    {
+     "file": "hero_idle_breathe_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 119.2,
+     "changed_px": 3589,
+     "colors": 33,
+     "changed_ratio": 0.394,
+     "bbox_span": 0.979,
+     "subj_diff": 0.881,
+     "opaque_ratio": 0.36
+    },
+    {
+     "file": "hero_idle_breathe_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 124.4,
+     "changed_px": 2499,
+     "colors": 33,
+     "changed_ratio": 0.293,
+     "bbox_span": 0.938,
+     "subj_diff": 0.761,
+     "opaque_ratio": 0.351
+    },
+    {
+     "file": "hero_idle_breathe_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 114.7,
+     "changed_px": 2893,
+     "colors": 33,
+     "changed_ratio": 0.326,
+     "bbox_span": 0.948,
+     "subj_diff": 0.82,
+     "opaque_ratio": 0.356
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.794
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.79
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.794
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.8
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.338,
+    "bbox_span_avg": 0.955,
+    "subj_diff_avg": 0.821,
+    "opaque_ratio_avg": 0.356,
+    "palette_identity": 0.885,
+    "palette_identity_pairs": [
+     0.916,
+     0.862,
+     0.866,
+     0.832,
+     0.849,
+     0.982
+    ],
+    "subject_redraw_avg": 0.8206666666666665
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_idle_breathe.png"
+  },
+  "hero_walk": {
+   "frames_expected": 6,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "hero_walk_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 104.5,
+     "changed_px": -1,
+     "colors": 33
+    },
+    {
+     "file": "hero_walk_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 109.5,
+     "changed_px": 3194,
+     "colors": 33,
+     "changed_ratio": 0.384,
+     "bbox_span": 0.979,
+     "subj_diff": 0.787,
+     "opaque_ratio": 0.411
+    },
+    {
+     "file": "hero_walk_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 107.3,
+     "changed_px": 3333,
+     "colors": 33,
+     "changed_ratio": 0.406,
+     "bbox_span": 0.979,
+     "subj_diff": 0.839,
+     "opaque_ratio": 0.431
+    },
+    {
+     "file": "hero_walk_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 105.1,
+     "changed_px": 1683,
+     "colors": 33,
+     "changed_ratio": 0.204,
+     "bbox_span": 0.969,
+     "subj_diff": 0.457,
+     "opaque_ratio": 0.435
+    },
+    {
+     "file": "hero_walk_f4.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 109.9,
+     "changed_px": 3248,
+     "colors": 33,
+     "changed_ratio": 0.402,
+     "bbox_span": 0.979,
+     "subj_diff": 0.833,
+     "opaque_ratio": 0.41
+    },
+    {
+     "file": "hero_walk_f5.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 102.5,
+     "changed_px": 3421,
+     "colors": 33,
+     "changed_ratio": 0.409,
+     "bbox_span": 1.0,
+     "subj_diff": 0.831,
+     "opaque_ratio": 0.433
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.765
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.774
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.771
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.767
+    },
+    {
+     "frame": 4,
+     "clipped": false,
+     "subject_h": 0.771
+    },
+    {
+     "frame": 5,
+     "clipped": false,
+     "subject_h": 0.789
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.361,
+    "bbox_span_avg": 0.981,
+    "subj_diff_avg": 0.749,
+    "opaque_ratio_avg": 0.424
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_walk.png"
+  },
+  "hero_attack1": {
+   "frames_expected": 6,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "hero_attack1_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 107.5,
+     "changed_px": -1,
+     "colors": 33
+    },
+    {
+     "file": "hero_attack1_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 104.7,
+     "changed_px": 2262,
+     "colors": 33,
+     "changed_ratio": 0.25,
+     "bbox_span": 0.927,
+     "subj_diff": 0.748,
+     "opaque_ratio": 0.283
+    },
+    {
+     "file": "hero_attack1_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 104.6,
+     "changed_px": 3289,
+     "colors": 33,
+     "changed_ratio": 0.362,
+     "bbox_span": 0.979,
+     "subj_diff": 0.894,
+     "opaque_ratio": 0.369
+    },
+    {
+     "file": "hero_attack1_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 102.6,
+     "changed_px": 3202,
+     "colors": 33,
+     "changed_ratio": 0.368,
+     "bbox_span": 0.979,
+     "subj_diff": 0.885,
+     "opaque_ratio": 0.319
+    },
+    {
+     "file": "hero_attack1_f4.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 107.8,
+     "changed_px": 3309,
+     "colors": 33,
+     "changed_ratio": 0.378,
+     "bbox_span": 0.948,
+     "subj_diff": 0.923,
+     "opaque_ratio": 0.327
+    },
+    {
+     "file": "hero_attack1_f5.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 111.4,
+     "changed_px": 3059,
+     "colors": 33,
+     "changed_ratio": 0.347,
+     "bbox_span": 0.948,
+     "subj_diff": 0.913,
+     "opaque_ratio": 0.291
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.747
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.793
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.78
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.745
+    },
+    {
+     "frame": 4,
+     "clipped": false,
+     "subject_h": 0.723
+    },
+    {
+     "frame": 5,
+     "clipped": false,
+     "subject_h": 0.75
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.341,
+    "bbox_span_avg": 0.956,
+    "subj_diff_avg": 0.873,
+    "opaque_ratio_avg": 0.318,
+    "palette_identity": 0.924,
+    "palette_identity_pairs": [
+     0.991,
+     0.979,
+     0.988,
+     0.817,
+     0.986,
+     0.966,
+     0.979,
+     0.792,
+     0.976,
+     0.966,
+     0.821,
+     0.962,
+     0.821,
+     0.981,
+     0.836
+    ],
+    "subject_redraw_avg": 0.8726
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_attack1.png"
+  },
+  "hero_skill_slash": {
+   "frames_expected": 8,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "hero_skill_slash_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 112.7,
+     "changed_px": -1,
+     "colors": 33
+    },
+    {
+     "file": "hero_skill_slash_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 110.0,
+     "changed_px": 3316,
+     "colors": 33,
+     "changed_ratio": 0.366,
+     "bbox_span": 0.958,
+     "subj_diff": 0.9,
+     "opaque_ratio": 0.292
+    },
+    {
+     "file": "hero_skill_slash_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 107.0,
+     "changed_px": 2557,
+     "colors": 33,
+     "changed_ratio": 0.284,
+     "bbox_span": 0.948,
+     "subj_diff": 0.864,
+     "opaque_ratio": 0.268
+    },
+    {
+     "file": "hero_skill_slash_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 106.3,
+     "changed_px": 2065,
+     "colors": 33,
+     "changed_ratio": 0.24,
+     "bbox_span": 0.948,
+     "subj_diff": 0.816,
+     "opaque_ratio": 0.276
+    },
+    {
+     "file": "hero_skill_slash_f4.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 104.4,
+     "changed_px": 3243,
+     "colors": 33,
+     "changed_ratio": 0.367,
+     "bbox_span": 0.969,
+     "subj_diff": 0.917,
+     "opaque_ratio": 0.353
+    },
+    {
+     "file": "hero_skill_slash_f5.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 104.4,
+     "changed_px": 3187,
+     "colors": 33,
+     "changed_ratio": 0.354,
+     "bbox_span": 0.969,
+     "subj_diff": 0.873,
+     "opaque_ratio": 0.313
+    },
+    {
+     "file": "hero_skill_slash_f6.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 108.3,
+     "changed_px": 3243,
+     "colors": 32,
+     "changed_ratio": 0.356,
+     "bbox_span": 0.927,
+     "subj_diff": 0.886,
+     "opaque_ratio": 0.324
+    },
+    {
+     "file": "hero_skill_slash_f7.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 112.8,
+     "changed_px": 2948,
+     "colors": 33,
+     "changed_ratio": 0.333,
+     "bbox_span": 0.927,
+     "subj_diff": 0.896,
+     "opaque_ratio": 0.285
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.769
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.748
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.834
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.833
+    },
+    {
+     "frame": 4,
+     "clipped": false,
+     "subject_h": 0.789
+    },
+    {
+     "frame": 5,
+     "clipped": false,
+     "subject_h": 0.756
+    },
+    {
+     "frame": 6,
+     "clipped": false,
+     "subject_h": 0.725
+    },
+    {
+     "frame": 7,
+     "clipped": false,
+     "subject_h": 0.751
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.329,
+    "bbox_span_avg": 0.949,
+    "subj_diff_avg": 0.879,
+    "opaque_ratio_avg": 0.302,
+    "palette_identity": 0.966,
+    "palette_identity_pairs": [
+     0.962,
+     0.96,
+     0.947,
+     0.979,
+     0.968,
+     0.98,
+     0.962,
+     0.974,
+     0.964,
+     0.973,
+     0.98,
+     0.952,
+     0.992,
+     0.954,
+     0.977,
+     0.978,
+     0.957,
+     0.983,
+     0.953,
+     0.939,
+     0.943,
+     0.954,
+     0.984,
+     0.978,
+     0.971,
+     0.952,
+     0.987,
+     0.947
+    ],
+    "subject_redraw_avg": 0.8788571428571429
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_skill_slash.png"
+  },
+  "hero_ghost_slash": {
+   "frames_expected": 6,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "hero_ghost_slash_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 91.7,
+     "changed_px": -1,
+     "colors": 32
+    },
+    {
+     "file": "hero_ghost_slash_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 112.7,
+     "changed_px": 3978,
+     "colors": 33,
+     "changed_ratio": 0.44,
+     "bbox_span": 0.979,
+     "subj_diff": 0.912,
+     "opaque_ratio": 0.426
+    },
+    {
+     "file": "hero_ghost_slash_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 103.2,
+     "changed_px": 3848,
+     "colors": 33,
+     "changed_ratio": 0.435,
+     "bbox_span": 0.958,
+     "subj_diff": 0.887,
+     "opaque_ratio": 0.391
+    },
+    {
+     "file": "hero_ghost_slash_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 110.3,
+     "changed_px": 3767,
+     "colors": 33,
+     "changed_ratio": 0.42,
+     "bbox_span": 0.979,
+     "subj_diff": 0.918,
+     "opaque_ratio": 0.348
+    },
+    {
+     "file": "hero_ghost_slash_f4.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 123.5,
+     "changed_px": 3584,
+     "colors": 33,
+     "changed_ratio": 0.396,
+     "bbox_span": 0.927,
+     "subj_diff": 0.889,
+     "opaque_ratio": 0.371
+    },
+    {
+     "file": "hero_ghost_slash_f5.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 119.1,
+     "changed_px": 3752,
+     "colors": 33,
+     "changed_ratio": 0.412,
+     "bbox_span": 0.938,
+     "subj_diff": 0.892,
+     "opaque_ratio": 0.379
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.753
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.772
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.782
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.723
+    },
+    {
+     "frame": 4,
+     "clipped": false,
+     "subject_h": 0.765
+    },
+    {
+     "frame": 5,
+     "clipped": false,
+     "subject_h": 0.776
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.421,
+    "bbox_span_avg": 0.956,
+    "subj_diff_avg": 0.9,
+    "opaque_ratio_avg": 0.383,
+    "palette_identity": 0.916,
+    "palette_identity_pairs": [
+     0.839,
+     0.968,
+     0.938,
+     0.843,
+     0.86,
+     0.887,
+     0.907,
+     0.957,
+     0.945,
+     0.944,
+     0.906,
+     0.921,
+     0.917,
+     0.926,
+     0.979
+    ],
+    "subject_redraw_avg": 0.8996000000000001
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\hero_ghost_slash.png"
+  },
+  "goblin_walk": {
+   "frames_expected": 4,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "goblin_walk_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 83.6,
+     "changed_px": -1,
+     "colors": 33
+    },
+    {
+     "file": "goblin_walk_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 83.4,
+     "changed_px": 2967,
+     "colors": 33,
+     "changed_ratio": 0.359,
+     "bbox_span": 0.99,
+     "subj_diff": 0.785,
+     "opaque_ratio": 0.376
+    },
+    {
+     "file": "goblin_walk_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 85.8,
+     "changed_px": 1184,
+     "colors": 33,
+     "changed_ratio": 0.194,
+     "bbox_span": 0.948,
+     "subj_diff": 0.496,
+     "opaque_ratio": 0.373
+    },
+    {
+     "file": "goblin_walk_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 83.4,
+     "changed_px": 2951,
+     "colors": 33,
+     "changed_ratio": 0.363,
+     "bbox_span": 0.99,
+     "subj_diff": 0.799,
+     "opaque_ratio": 0.384
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.696
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.694
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.696
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.694
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.305,
+    "bbox_span_avg": 0.976,
+    "subj_diff_avg": 0.693,
+    "opaque_ratio_avg": 0.378
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\goblin_walk.png"
+  },
+  "brute_walk": {
+   "frames_expected": 4,
+   "size": [
+    96,
+    96
+   ],
+   "problems": [],
+   "warn": [],
+   "frames": [
+    {
+     "file": "brute_walk_f0.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 82.0,
+     "changed_px": -1,
+     "colors": 33
+    },
+    {
+     "file": "brute_walk_f1.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 82.3,
+     "changed_px": 2236,
+     "colors": 33,
+     "changed_ratio": 0.276,
+     "bbox_span": 0.99,
+     "subj_diff": 0.544,
+     "opaque_ratio": 0.498
+    },
+    {
+     "file": "brute_walk_f2.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 82.2,
+     "changed_px": 1962,
+     "colors": 33,
+     "changed_ratio": 0.238,
+     "bbox_span": 0.99,
+     "subj_diff": 0.473,
+     "opaque_ratio": 0.497
+    },
+    {
+     "file": "brute_walk_f3.png",
+     "size": [
+      96,
+      96
+     ],
+     "opaque_rgb_mean": 82.3,
+     "changed_px": 1993,
+     "colors": 32,
+     "changed_ratio": 0.234,
+     "bbox_span": 0.99,
+     "subj_diff": 0.462,
+     "opaque_ratio": 0.504
+    }
+   ],
+   "raw_edge": [
+    {
+     "frame": 0,
+     "clipped": false,
+     "subject_h": 0.702
+    },
+    {
+     "frame": 1,
+     "clipped": false,
+     "subject_h": 0.701
+    },
+    {
+     "frame": 2,
+     "clipped": false,
+     "subject_h": 0.702
+    },
+    {
+     "frame": 3,
+     "clipped": false,
+     "subject_h": 0.702
+    }
+   ],
+   "motion": {
+    "changed_ratio_avg": 0.249,
+    "bbox_span_avg": 0.99,
+    "subj_diff_avg": 0.493,
+    "opaque_ratio_avg": 0.5
+   },
+   "contact_sheet": "D:/my-projects/games/dnfm-arena\\assets\\contact_sheet\\brute_walk.png"
+  }
+ },
+ "fail": [],
+ "warn": []
+}

@@ -1,0 +1,1066 @@
+{
+ "hero_idle": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 1,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": true,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "hero_idle.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 114.7,
+    "colors": 30
+   }
+  ]
+ },
+ "hero_idle_breathe": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 4,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": true,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "hero_idle_breathe_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 107.8,
+    "colors": 33
+   },
+   {
+    "file": "hero_idle_breathe_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 119.2,
+    "colors": 33,
+    "changed_px": 3589
+   },
+   {
+    "file": "hero_idle_breathe_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 124.4,
+    "colors": 33,
+    "changed_px": 2499
+   },
+   {
+    "file": "hero_idle_breathe_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 114.7,
+    "colors": 33,
+    "changed_px": 2893
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 768,
+    "root_x": 467.77,
+    "shift": [
+     -37,
+     2
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 52,
+    "paste": [
+     1,
+     1
+    ]
+   },
+   {
+    "ground_y": 770,
+    "root_x": 437.0,
+    "shift": [
+     -6,
+     0
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 52,
+    "paste": [
+     4,
+     5
+    ]
+   },
+   {
+    "ground_y": 770,
+    "root_x": 424.54,
+    "shift": [
+     6,
+     0
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 52,
+    "paste": [
+     5,
+     5
+    ]
+   },
+   {
+    "ground_y": 819,
+    "root_x": 410.17,
+    "shift": [
+     21,
+     -49
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 52,
+    "paste": [
+     7,
+     5
+    ]
+   }
+  ]
+ },
+ "hero_walk": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 6,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": true,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "hero_walk_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 104.5,
+    "colors": 33
+   },
+   {
+    "file": "hero_walk_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 109.5,
+    "colors": 33,
+    "changed_px": 3194
+   },
+   {
+    "file": "hero_walk_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 107.3,
+    "colors": 33,
+    "changed_px": 3333
+   },
+   {
+    "file": "hero_walk_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 105.1,
+    "colors": 33,
+    "changed_px": 1683
+   },
+   {
+    "file": "hero_walk_f4.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 109.9,
+    "colors": 33,
+    "changed_px": 3248
+   },
+   {
+    "file": "hero_walk_f5.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 102.5,
+    "colors": 33,
+    "changed_px": 3421
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 806,
+    "root_x": 434.59,
+    "shift": [
+     -4,
+     1
+    ],
+    "canvas_ground_y": 95,
+    "canvas_root_x": 49,
+    "paste": [
+     -2,
+     1
+    ]
+   },
+   {
+    "ground_y": 807,
+    "root_x": 414.1,
+    "shift": [
+     16,
+     0
+    ],
+    "canvas_ground_y": 95,
+    "canvas_root_x": 49,
+    "paste": [
+     0,
+     0
+    ]
+   },
+   {
+    "ground_y": 809,
+    "root_x": 430.62,
+    "shift": [
+     0,
+     -2
+    ],
+    "canvas_ground_y": 95,
+    "canvas_root_x": 49,
+    "paste": [
+     -2,
+     0
+    ]
+   },
+   {
+    "ground_y": 807,
+    "root_x": 430.12,
+    "shift": [
+     0,
+     0
+    ],
+    "canvas_ground_y": 95,
+    "canvas_root_x": 49,
+    "paste": [
+     -2,
+     0
+    ]
+   },
+   {
+    "ground_y": 807,
+    "root_x": 412.62,
+    "shift": [
+     18,
+     0
+    ],
+    "canvas_ground_y": 95,
+    "canvas_root_x": 49,
+    "paste": [
+     0,
+     0
+    ]
+   },
+   {
+    "ground_y": 807,
+    "root_x": 431.57,
+    "shift": [
+     -1,
+     0
+    ],
+    "canvas_ground_y": 95,
+    "canvas_root_x": 49,
+    "paste": [
+     -2,
+     0
+    ]
+   }
+  ]
+ },
+ "hero_attack1": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 6,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": false,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "hero_attack1_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 107.5,
+    "colors": 33
+   },
+   {
+    "file": "hero_attack1_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 104.7,
+    "colors": 33,
+    "changed_px": 2262
+   },
+   {
+    "file": "hero_attack1_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 104.6,
+    "colors": 33,
+    "changed_px": 3289
+   },
+   {
+    "file": "hero_attack1_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 102.6,
+    "colors": 33,
+    "changed_px": 3202
+   },
+   {
+    "file": "hero_attack1_f4.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 107.8,
+    "colors": 33,
+    "changed_px": 3309
+   },
+   {
+    "file": "hero_attack1_f5.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 111.4,
+    "colors": 33,
+    "changed_px": 3059
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 773,
+    "root_x": 430.69,
+    "shift": [
+     0,
+     -9
+    ],
+    "canvas_ground_y": 91,
+    "canvas_root_x": 52,
+    "paste": [
+     5,
+     7
+    ]
+   },
+   {
+    "ground_y": 773,
+    "root_x": 422.24,
+    "shift": [
+     8,
+     -9
+    ],
+    "canvas_ground_y": 91,
+    "canvas_root_x": 52,
+    "paste": [
+     6,
+     7
+    ]
+   },
+   {
+    "ground_y": 764,
+    "root_x": 472.53,
+    "shift": [
+     -42,
+     0
+    ],
+    "canvas_ground_y": 91,
+    "canvas_root_x": 52,
+    "paste": [
+     1,
+     8
+    ]
+   },
+   {
+    "ground_y": 764,
+    "root_x": 403.91,
+    "shift": [
+     27,
+     0
+    ],
+    "canvas_ground_y": 91,
+    "canvas_root_x": 52,
+    "paste": [
+     8,
+     8
+    ]
+   },
+   {
+    "ground_y": 764,
+    "root_x": 449.14,
+    "shift": [
+     -19,
+     0
+    ],
+    "canvas_ground_y": 91,
+    "canvas_root_x": 52,
+    "paste": [
+     3,
+     8
+    ]
+   },
+   {
+    "ground_y": 764,
+    "root_x": 430.22,
+    "shift": [
+     0,
+     0
+    ],
+    "canvas_ground_y": 91,
+    "canvas_root_x": 52,
+    "paste": [
+     5,
+     8
+    ]
+   }
+  ]
+ },
+ "hero_skill_slash": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 8,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": false,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "hero_skill_slash_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 112.7,
+    "colors": 33
+   },
+   {
+    "file": "hero_skill_slash_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 110.0,
+    "colors": 33,
+    "changed_px": 3316
+   },
+   {
+    "file": "hero_skill_slash_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 107.0,
+    "colors": 33,
+    "changed_px": 2557
+   },
+   {
+    "file": "hero_skill_slash_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 106.3,
+    "colors": 33,
+    "changed_px": 2065
+   },
+   {
+    "file": "hero_skill_slash_f4.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 104.4,
+    "colors": 33,
+    "changed_px": 3243
+   },
+   {
+    "file": "hero_skill_slash_f5.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 104.4,
+    "colors": 33,
+    "changed_px": 3187
+   },
+   {
+    "file": "hero_skill_slash_f6.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 108.3,
+    "colors": 32,
+    "changed_px": 3243
+   },
+   {
+    "file": "hero_skill_slash_f7.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 112.8,
+    "colors": 33,
+    "changed_px": 2948
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 807,
+    "root_x": 493.83,
+    "shift": [
+     -49,
+     0
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     1,
+     5
+    ]
+   },
+   {
+    "ground_y": 807,
+    "root_x": 429.47,
+    "shift": [
+     15,
+     0
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     8,
+     5
+    ]
+   },
+   {
+    "ground_y": 853,
+    "root_x": 439.94,
+    "shift": [
+     4,
+     -46
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     6,
+     4
+    ]
+   },
+   {
+    "ground_y": 818,
+    "root_x": 437.93,
+    "shift": [
+     6,
+     -11
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     7,
+     4
+    ]
+   },
+   {
+    "ground_y": 806,
+    "root_x": 481.76,
+    "shift": [
+     -37,
+     1
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     2,
+     5
+    ]
+   },
+   {
+    "ground_y": 807,
+    "root_x": 417.38,
+    "shift": [
+     27,
+     0
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     9,
+     5
+    ]
+   },
+   {
+    "ground_y": 806,
+    "root_x": 459.58,
+    "shift": [
+     -15,
+     1
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     4,
+     5
+    ]
+   },
+   {
+    "ground_y": 847,
+    "root_x": 448.75,
+    "shift": [
+     -4,
+     -40
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 53,
+    "paste": [
+     6,
+     5
+    ]
+   }
+  ]
+ },
+ "hero_ghost_slash": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 6,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": false,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "hero_ghost_slash_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 91.7,
+    "colors": 32
+   },
+   {
+    "file": "hero_ghost_slash_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 112.7,
+    "colors": 33,
+    "changed_px": 3978
+   },
+   {
+    "file": "hero_ghost_slash_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 103.2,
+    "colors": 33,
+    "changed_px": 3848
+   },
+   {
+    "file": "hero_ghost_slash_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 110.3,
+    "colors": 33,
+    "changed_px": 3767
+   },
+   {
+    "file": "hero_ghost_slash_f4.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 123.5,
+    "colors": 33,
+    "changed_px": 3584
+   },
+   {
+    "file": "hero_ghost_slash_f5.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 119.1,
+    "colors": 33,
+    "changed_px": 3752
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 808,
+    "root_x": 423.29,
+    "shift": [
+     25,
+     -46
+    ],
+    "canvas_ground_y": 89,
+    "canvas_root_x": 51,
+    "paste": [
+     5,
+     6
+    ]
+   },
+   {
+    "ground_y": 761,
+    "root_x": 454.44,
+    "shift": [
+     -6,
+     1
+    ],
+    "canvas_ground_y": 89,
+    "canvas_root_x": 51,
+    "paste": [
+     2,
+     7
+    ]
+   },
+   {
+    "ground_y": 761,
+    "root_x": 487.82,
+    "shift": [
+     -39,
+     1
+    ],
+    "canvas_ground_y": 89,
+    "canvas_root_x": 51,
+    "paste": [
+     -1,
+     7
+    ]
+   },
+   {
+    "ground_y": 761,
+    "root_x": 442.34,
+    "shift": [
+     6,
+     1
+    ],
+    "canvas_ground_y": 89,
+    "canvas_root_x": 51,
+    "paste": [
+     3,
+     7
+    ]
+   },
+   {
+    "ground_y": 764,
+    "root_x": 427.08,
+    "shift": [
+     21,
+     -2
+    ],
+    "canvas_ground_y": 89,
+    "canvas_root_x": 51,
+    "paste": [
+     5,
+     7
+    ]
+   },
+   {
+    "ground_y": 813,
+    "root_x": 465.61,
+    "shift": [
+     -17,
+     -51
+    ],
+    "canvas_ground_y": 89,
+    "canvas_root_x": 51,
+    "paste": [
+     1,
+     2
+    ]
+   }
+  ]
+ },
+ "goblin_walk": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 4,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": true,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "goblin_walk_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 83.6,
+    "colors": 33
+   },
+   {
+    "file": "goblin_walk_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 83.4,
+    "colors": 33,
+    "changed_px": 2967
+   },
+   {
+    "file": "goblin_walk_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 85.8,
+    "colors": 33,
+    "changed_px": 1184
+   },
+   {
+    "file": "goblin_walk_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 83.4,
+    "colors": 33,
+    "changed_px": 2951
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 670,
+    "root_x": 305.99,
+    "shift": [
+     0,
+     36
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 48,
+    "paste": [
+     9,
+     5
+    ]
+   },
+   {
+    "ground_y": 707,
+    "root_x": 304.56,
+    "shift": [
+     1,
+     -1
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 48,
+    "paste": [
+     9,
+     1
+    ]
+   },
+   {
+    "ground_y": 707,
+    "root_x": 306.53,
+    "shift": [
+     -1,
+     -1
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 48,
+    "paste": [
+     9,
+     1
+    ]
+   },
+   {
+    "ground_y": 706,
+    "root_x": 305.22,
+    "shift": [
+     0,
+     0
+    ],
+    "canvas_ground_y": 90,
+    "canvas_root_x": 48,
+    "paste": [
+     9,
+     5
+    ]
+   }
+  ]
+ },
+ "brute_walk": {
+  "layer": "L1",
+  "kind": "sprite",
+  "size": [
+   96,
+   96
+  ],
+  "frames": 4,
+  "anchor": [
+   0.5,
+   1.0
+  ],
+  "loop": true,
+  "bg": "green",
+  "frames_meta": [
+   {
+    "file": "brute_walk_f0.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 82.0,
+    "colors": 33
+   },
+   {
+    "file": "brute_walk_f1.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 82.3,
+    "colors": 33,
+    "changed_px": 2236
+   },
+   {
+    "file": "brute_walk_f2.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 82.2,
+    "colors": 33,
+    "changed_px": 1962
+   },
+   {
+    "file": "brute_walk_f3.png",
+    "size": [
+     96,
+     96
+    ],
+    "opaque_rgb_mean": 82.3,
+    "colors": 32,
+    "changed_px": 1993
+   }
+  ],
+  "anchors": [
+   {
+    "ground_y": 713,
+    "root_x": 384.45,
+    "shift": [
+     -1,
+     -1
+    ],
+    "canvas_ground_y": 94,
+    "canvas_root_x": 44,
+    "paste": [
+     1,
+     14
+    ]
+   },
+   {
+    "ground_y": 712,
+    "root_x": 382.66,
+    "shift": [
+     1,
+     0
+    ],
+    "canvas_ground_y": 94,
+    "canvas_root_x": 44,
+    "paste": [
+     1,
+     14
+    ]
+   },
+   {
+    "ground_y": 712,
+    "root_x": 382.15,
+    "shift": [
+     1,
+     0
+    ],
+    "canvas_ground_y": 94,
+    "canvas_root_x": 44,
+    "paste": [
+     1,
+     14
+    ]
+   },
+   {
+    "ground_y": 713,
+    "root_x": 384.37,
+    "shift": [
+     -1,
+     -1
+    ],
+    "canvas_ground_y": 94,
+    "canvas_root_x": 44,
+    "paste": [
+     1,
+     14
+    ]
+   }
+  ]
+ }
+}

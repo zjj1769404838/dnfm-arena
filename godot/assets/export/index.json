@@ -1,0 +1,230 @@
+{
+ "project": "D:\\my-projects\\games\\dnfm-arena",
+ "generated_at": "2026-10-29T18:22:28",
+ "actions": [
+  {
+   "name": "hero_idle",
+   "char": "hero",
+   "action": "idle",
+   "facing": "right",
+   "frames": 1,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 8,
+   "play": "forward",
+   "loop": true,
+   "durations": [
+    125
+   ],
+   "hit_frames": null,
+   "sheet": "assets/export/hero_idle.png",
+   "json": "assets/export/hero_idle.json",
+   "godot": "assets/export/godot/hero_idle.tres",
+   "tag": "hero_idle_right",
+   "total_ms": 125
+  },
+  {
+   "name": "hero_idle_breathe",
+   "char": "hero",
+   "action": "idle_breathe",
+   "facing": "right",
+   "frames": 4,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 8,
+   "play": "pingpong",
+   "loop": true,
+   "durations": [
+    125,
+    125,
+    125,
+    125
+   ],
+   "hit_frames": null,
+   "sheet": "assets/export/hero_idle_breathe.png",
+   "json": "assets/export/hero_idle_breathe.json",
+   "godot": "assets/export/godot/hero_idle_breathe.tres",
+   "tag": "hero_idle_breathe_right",
+   "total_ms": 500
+  },
+  {
+   "name": "hero_walk",
+   "char": "hero",
+   "action": "walk",
+   "facing": "right",
+   "frames": 6,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 10,
+   "play": "forward",
+   "loop": true,
+   "durations": [
+    150,
+    100,
+    150,
+    150,
+    100,
+    150
+   ],
+   "hit_frames": null,
+   "sheet": "assets/export/hero_walk.png",
+   "json": "assets/export/hero_walk.json",
+   "godot": "assets/export/godot/hero_walk.tres",
+   "tag": "hero_walk_right",
+   "total_ms": 800
+  },
+  {
+   "name": "hero_attack1",
+   "char": "hero",
+   "action": "attack1",
+   "facing": "right",
+   "frames": 6,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 12,
+   "play": "forward",
+   "loop": false,
+   "durations": [
+    120,
+    120,
+    60,
+    60,
+    100,
+    100
+   ],
+   "hit_frames": [
+    3,
+    4
+   ],
+   "sheet": "assets/export/hero_attack1.png",
+   "json": "assets/export/hero_attack1.json",
+   "godot": "assets/export/godot/hero_attack1.tres",
+   "tag": "hero_attack1_right",
+   "total_ms": 560
+  },
+  {
+   "name": "hero_skill_slash",
+   "char": "hero",
+   "action": "skill_slash",
+   "facing": "right",
+   "frames": 8,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 12,
+   "play": "forward",
+   "loop": false,
+   "durations": [
+    140,
+    140,
+    120,
+    120,
+    60,
+    60,
+    100,
+    100
+   ],
+   "hit_frames": [
+    5,
+    6
+   ],
+   "sheet": "assets/export/hero_skill_slash.png",
+   "json": "assets/export/hero_skill_slash.json",
+   "godot": "assets/export/godot/hero_skill_slash.tres",
+   "tag": "hero_skill_slash_right",
+   "total_ms": 840
+  },
+  {
+   "name": "hero_ghost_slash",
+   "char": "hero",
+   "action": "ghost_slash",
+   "facing": "right",
+   "frames": 6,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 12,
+   "play": "forward",
+   "loop": false,
+   "durations": [
+    120,
+    120,
+    60,
+    60,
+    100,
+    100
+   ],
+   "hit_frames": [
+    2,
+    3
+   ],
+   "sheet": "assets/export/hero_ghost_slash.png",
+   "json": "assets/export/hero_ghost_slash.json",
+   "godot": "assets/export/godot/hero_ghost_slash.tres",
+   "tag": "hero_ghost_slash_right",
+   "total_ms": 560
+  },
+  {
+   "name": "goblin_walk",
+   "char": "goblin",
+   "action": "walk",
+   "facing": "right",
+   "frames": 4,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 10,
+   "play": "forward",
+   "loop": true,
+   "durations": [
+    150,
+    120,
+    150,
+    120
+   ],
+   "hit_frames": null,
+   "sheet": "assets/export/goblin_walk.png",
+   "json": "assets/export/goblin_walk.json",
+   "godot": "assets/export/godot/goblin_walk.tres",
+   "tag": "goblin_walk_right",
+   "total_ms": 540
+  },
+  {
+   "name": "brute_walk",
+   "char": "brute",
+   "action": "walk",
+   "facing": "right",
+   "frames": 4,
+   "size": [
+    96,
+    96
+   ],
+   "fps": 10,
+   "play": "forward",
+   "loop": true,
+   "durations": [
+    160,
+    130,
+    160,
+    130
+   ],
+   "hit_frames": null,
+   "sheet": "assets/export/brute_walk.png",
+   "json": "assets/export/brute_walk.json",
+   "godot": "assets/export/godot/brute_walk.tres",
+   "tag": "brute_walk_right",
+   "total_ms": 580
+  }
+ ]
+}
